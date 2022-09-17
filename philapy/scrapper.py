@@ -151,9 +151,3 @@ class Scrapper:
         html = self._driver.page_source
         concerts = self._parse_html_page(html)
         return concerts
-
-
-if __name__ == "__main__":
-    scrapper = Scrapper()
-    concert = scrapper.get_concerts()
-    print(concert)
