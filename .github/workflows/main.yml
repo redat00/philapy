@@ -36,10 +36,13 @@ jobs:
       - name: iSort
         run: poetry run isort -c philapy/
 
-      - name: Create Release
-        uses: ncipollo/release-action@v1
+      - name: Build package
+        run: poetry build
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          artifacts: "dist/*"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          draft: false
-          prerelease: steps.check-version.outputs.prerelease == 'true'
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          title: "Development Build"
+          files: |
+            dist/*.tar.gz
