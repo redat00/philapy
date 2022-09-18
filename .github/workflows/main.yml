@@ -35,6 +35,3 @@ jobs:
 
       - name: iSort
         run: poetry run isort -c philapy/
-
-      - name: Build package
-        run: poetry build

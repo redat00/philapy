@@ -39,6 +39,5 @@ jobs:
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           pre_release: false
-          title: "Release"
           files: |
             dist/*.tar.gz
