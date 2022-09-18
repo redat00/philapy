@@ -7,7 +7,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: "3.10.4"
+          python-version: "3.10.4"  
  
       - name: Install Poetry
         uses: snok/install-poetry@v1
@@ -25,16 +25,16 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
 
       - name: Black
-        run: poetry run black poetry/ --check
+        run: poetry run black philapy/ --check
 
       - name: Pytest
-        run: poetry run pytest --cov=poetry poetry/
+        run: poetry run pytest --cov=philapy philapy/
 
       - name: Flake8
-        run: poetry run flake8 poetry/  
+        run: poetry run flake8 philapy/  
 
       - name: iSort
-        run: poetry run isort -c poetry/
+        run: poetry run isort -c philapy/
 
       - name: Create Release
         uses: ncipollo/release-action@v1
