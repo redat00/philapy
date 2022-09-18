@@ -38,6 +38,6 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          pre_release: false
+          prerelease: false
           files: |
             dist/*.tar.gz
