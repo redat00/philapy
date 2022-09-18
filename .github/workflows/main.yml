@@ -39,10 +39,15 @@ jobs:
       - name: Build package
         run: poetry build
 
+      - name: Retrieve version
+        run: |
+          echo ::set-env name=TAG_NAME::$(poetry version | awk '{print $2}')
+
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          pre_release: false
           automatic_release_tag: "latest"
-          title: "Development Build"
+          title: "Release {{ env.TAG_NAME }}"
           files: |
             dist/*.tar.gz
