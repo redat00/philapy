@@ -26,6 +26,7 @@ class Scrapper:
         self._url_start = "https://philharmoniedeparis.fr"
         self._url = f"{self._url_start}/fr/agenda?types=1%2B2&place_i=45"
         self._chrome_options = Options()
+        self._chrome_options.add_argument("--no-sandbox")
         self._chrome_options.add_argument("--headless")
 
     def _get_event_title(self, event: BeautifulSoup) -> str:
