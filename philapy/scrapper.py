@@ -10,14 +10,19 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 
 # First Party
-from philapy.phi_dataclasses import Concert
+from philapy.dataclass import Concert
 
 
 class Scrapper:
     """Scrapper class."""
 
-    def __init__(self) -> None:
-        """Init of Scrapper class."""
+    def __init__(self, chrome_path: str) -> None:
+        """Init of Scrapper class.
+
+        Args:
+            chrome_path: Path of the chrome browser driver
+        """
+        self._chrome_path = chrome_path
         self._url_start = "https://philharmoniedeparis.fr"
         self._url = f"{self._url_start}/fr/agenda?types=1%2B2&place_i=45"
         self._chrome_options = Options()
@@ -137,7 +142,7 @@ class Scrapper:
             List[Concert]: A list of concert under 10 euros and available
         """
         self._driver = webdriver.Chrome(
-            service=Service(executable_path="/snap/bin/chromium.chromedriver"),
+            service=Service(executable_path=self._chrome_path),
             options=self._chrome_options,
         )  # pytype: disable=wrong-keyword-args
 

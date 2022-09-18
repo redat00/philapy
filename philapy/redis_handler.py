@@ -6,18 +6,22 @@ from typing import List
 from redis import Redis
 
 # First Party
-from philapy.phi_dataclasses import Concert
+from philapy.dataclass import Concert
 
 
 class RedisHandler:
     "RedisHandler class."
 
-    def __init__(self) -> None:
-        """Init of RedisHandler class."""
+    def __init__(self, redis_url: str, redis_port: int) -> None:
+        """Init of RedisHandler class.
 
+        Args:
+            redis_url: Str representation of the Redis URL
+            redis_port: Int representation of the Redis port
+        """
         self._r_client = Redis(
-            host="127.0.0.1",
-            port=6379,
+            host=redis_url,
+            port=redis_port,
             db=0,
             charset="utf-8",
             decode_responses=True,

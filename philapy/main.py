@@ -1,7 +1,5 @@
-# Standard Library
-from time import sleep
-
 # First Party
+from philapy.dataclass import AppConfig
 from philapy.messager import Messager
 from philapy.redis_handler import RedisHandler
 from philapy.scrapper import Scrapper
@@ -10,11 +8,23 @@ from philapy.scrapper import Scrapper
 class Philapy:
     """Philapy class."""
 
-    def __init__(self) -> None:
-        """Init of Philapy class."""
-        self._rha = RedisHandler()
-        self._scrapper = Scrapper()
-        self._messager = Messager()
+    def __init__(
+        self, config: AppConfig, telegram_chat_id: str, telegram_token: str
+    ) -> None:
+        """Init of Philapy class.
+
+        Args:
+            config: An instanciated AppConfig object
+            telegram_chat_id: An str representation of telegram chat ID
+            telegram_token: An str representation of telegram bot token
+        """
+        self._rha = RedisHandler(
+            redis_url=config.redis_url, redis_port=config.redis_port
+        )
+        self._scrapper = Scrapper(chrome_path=config.chrome_path)
+        self._messager = Messager(
+            telegram_chat_id=telegram_chat_id, telegram_token=telegram_token
+        )
 
     def fetch(self) -> None:
         """Fetch data and dispatch it."""
@@ -30,10 +40,3 @@ class Philapy:
                 self._rha.append_concert(concert)
                 filtered_concerts.append(concert)
         self._messager.send_concerts_alerts(filtered_concerts)
-
-
-if __name__ == "__main__":
-    while True:
-        philapy = Philapy()
-        philapy.fetch()
-        sleep(30)
