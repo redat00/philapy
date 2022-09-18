@@ -1,0 +1,45 @@
+name: Philapy CI
+on: [push]
+jobs:
+  Python-Test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.10.4"
+ 
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+
+      - name: Cache Poetry virtualenv
+        uses: actions/cache@v1
+        id: cache
+        with:
+          path: ~/.virtualenvs
+          key: poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            poetry-${{ hashFiles('**/poetry.lock') }}
+      - name: Install Dependencies
+        run: poetry install
+        if: steps.cache.outputs.cache-hit != 'true'
+
+      - name: Black
+        run: poetry run black poetry/ --check
+
+      - name: Pytest
+        run: poetry run pytest --cov=poetry poetry/
+
+      - name: Flake8
+        run: poetry run flake8 poetry/  
+
+      - name: iSort
+        run: poetry run isort -c poetry/
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/*"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: false
+          prerelease: steps.check-version.outputs.prerelease == 'true'

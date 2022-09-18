@@ -1,10 +1,26 @@
 # Philapy
 
-Philapy is just a small bot used to scrap Philarmonie's website and send alerts messages to Telegram. It uses Redis for storing concert he has already found in order to prevent it from resending alert with already sent content.
+![CI/CD](https://github.com/redat00/philapy/actions/workflows/main.yml/badge.svg)
+[![Python 3.10.4](https://img.shields.io/badge/python-3.10.4-blue.svg)](https://www.python.org/downloads/release/python-3104/)
 
-## To do
 
-There is still some stuff to do to make this bot more robust. Here's a short like of those things.
+<p style="font-size: 20px"> 
+    Philapy is a small bot that parses Philarmonie's website in order to find concerts at a youth price !
+</p>
 
-- Writing unit test for all the differents classes and functions
-- Adding CI/CD to the project
+```bash
+Usage: philapy [OPTIONS]
+
+  Main command to run the app.
+
+  Args:     config_file_path: Path of the config file as str
+  telegram_chat_id: Telegram chat ID as str     telegram_token: Telegram bot
+  token as str
+
+Options:
+  -c, --config-file TEXT   Path of the configuration file of the application
+                           [required]
+  --telegram-chat-id TEXT  ID of the chat to send alerts to
+  --telegram-token TEXT    Telegram token of the bot
+  --help                   Show this message and exit.
+```

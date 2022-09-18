@@ -19,9 +19,12 @@ def test_create_config_dataclass():
 def test_create_concert_dataclass():
     """Test create a concert dataclass."""
     concert = Concert(
-        id=1, name="A Random Artist Name", url="https://dummy.com"
+        id=1,
+        title="A Random Artist Name",
+        url="https://dummy.com",
+        date="14/10/2022 18:00",
     )
     assert concert.id == 1
     assert concert.title == "A Random Artist Name"
     assert concert.url == "https://dummy.com"
-    assert concert.date is None
+    assert concert.date == "14/10/2022 18:00"

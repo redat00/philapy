@@ -23,7 +23,7 @@ class RedisHandler:
             host=redis_url,
             port=redis_port,
             db=0,
-            charset="utf-8",
+            encoding="utf-8",
             decode_responses=True,
         )
 
