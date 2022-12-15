@@ -35,11 +35,11 @@ def main(config_file: str, telegram_chat_id: str, telegram_token: str) -> None:
         telegram_token: Telegram bot token as str
     """
     config = load_config(config_file)
+    philapy = Philapy(
+        config=config,
+        telegram_chat_id=telegram_chat_id,
+        telegram_token=telegram_token,
+    )
     while True:
-        philapy = Philapy(
-            config=config,
-            telegram_chat_id=telegram_chat_id,
-            telegram_token=telegram_token,
-        )
         philapy.fetch()
         sleep(config.refresh_interval)
